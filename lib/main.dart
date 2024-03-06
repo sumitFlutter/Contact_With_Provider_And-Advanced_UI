@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:contact_info/screen/providers/provider.dart';
+import 'package:contact_info/screen/providers/ui_provider.dart';
 import 'package:contact_info/theme/theme.dart';
 import 'package:contact_info/utils/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,14 +15,17 @@ void main()
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: Provider1())
+        ChangeNotifierProvider.value(value: Provider1()),
+        ChangeNotifierProvider.value(value: UiProvider()),
       ],
-      child: Consumer<Provider1>(
-        builder:  (context, value,child) {
+      child: Consumer2<Provider1,UiProvider>(
+        builder:  (context, value, value2, child) {
+          value2.getUi();
+          value2.iosUi=value2.pAppUi;
           value.getTheme();
           value.theme=value.pTheme;
           return
-          Platform.isAndroid?
+          value2.pAppUi==false?
           MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: light,

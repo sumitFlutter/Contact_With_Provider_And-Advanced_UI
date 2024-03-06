@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:contact_info/screen/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,8 +21,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Provider1? providerR;
   Provider1? providerW;
+  UiProvider? uiR;
+  UiProvider? uiW;
   @override
   Widget build(BuildContext context) {
+    uiR=context.read<UiProvider>();
+    uiW=context.watch<UiProvider>();
     providerR=context.read<Provider1>();
     providerW=context.watch<Provider1>();
     return SafeArea(
@@ -34,9 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton.filledTonal(onPressed: () {
                     Navigator.pushNamed(context, "hide");
-
-
-          }, icon: Icon(Icons.lock)),
+          }, icon: const Icon(Icons.lock)),
           IconButton(onPressed: () => providerR!.setTheme(), icon: Icon(providerW!.themeMode))
         ],
       ),
@@ -44,6 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(4),
         child: Column(
           children: [
+            ListTile(title: const Text("Android Ui"),trailing: Switch(value: uiW!.iosUi,onChanged: (value) {
+              uiR!.setUi();
+            },),),
             Center(
               child: InkWell(
                 onTap: () {
@@ -51,13 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Container(
                   height: 45,
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.lightBlue.shade50,),
                   child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.person_add,color: Colors.lightBlue,),
-                    SizedBox(width: 10,),
+                    const Icon(Icons.person_add,color: Colors.lightBlue,),
+                    const SizedBox(width: 10,),
                     Text("Create a new contact",style: Theme.of(context).textTheme.labelLarge,)
                   ],
                 ),),

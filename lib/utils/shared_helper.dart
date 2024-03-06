@@ -20,3 +20,14 @@ Future<bool?> getIntro() async {
   s1.getBool("intro");
   return s1.getBool("intro");
 }
+void saveUi({required bool pUi}) async {
+  SharedPreferences s1 = await SharedPreferences.getInstance();
+  s1.setBool("ui", pUi);
+}
+
+Future<bool?> applyUi() async {
+  SharedPreferences s1 = await SharedPreferences.getInstance();
+  s1.getBool("ui");
+  return s1.getBool("ui");
+}
+
