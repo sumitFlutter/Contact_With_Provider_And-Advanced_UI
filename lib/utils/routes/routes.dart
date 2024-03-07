@@ -1,3 +1,5 @@
+
+import 'package:contact_info/screen/addData/add_data_ios_screen.dart';
 import 'package:contact_info/screen/hidden/hidden_screen.dart';
 import 'package:contact_info/screen/home/ios_home_screen.dart';
 import 'package:contact_info/screen/intro/intro_screen.dart';
@@ -19,6 +21,6 @@ Map <String,WidgetBuilder> myRouts={
 Map <String,WidgetBuilder> myRoutsIos={
   "/":(context) => SpleshScreen_(),
   "intro":(context) => IntroScreen(),
-  "home":(context) => HomeScreenIos()
-
+  "home":(context) => HomeScreenIos(),
+  "add":(context) => AddDataIosScreen(),
 };
