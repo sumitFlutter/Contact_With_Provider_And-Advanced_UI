@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:contact_info/screen/providers/screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -170,10 +171,9 @@ class _AddDataScreenState extends State<AddDataScreen> {
                             ScaffoldMessenger.of(context)!.showSnackBar(
                                 SnackBar(
                                     content: Text("Your Contact is saved")));
-                            Future.delayed(Duration(seconds: 1),
-                                    () => Navigator.pop(context));
+                            context.read<ScreenProvider>().changePage(index: 0);
                             providerR!.path= "assets/image/profile.png";
-                            providerR!.step=1;
+                            providerR!.step=0;
                           }
                         }
                         else{

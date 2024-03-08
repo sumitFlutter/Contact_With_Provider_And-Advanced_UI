@@ -131,16 +131,22 @@ class Provider1 with ChangeNotifier
   }
   Future<bool?> lock()
   async{
+    bool mainV=false;
     bool check = await auth.canCheckBiometrics;
+    check=true;
+    print(check);
     if(check)
       {
         List<BiometricType> l1 = await auth.getAvailableBiometrics();
         if(l1.isNotEmpty)
           {
-           bool mainV = await auth.authenticate(
-                localizedReason: 'Please authenticate to show account balance',
-                options: const AuthenticationOptions(useErrorDialogs: true));
-            return mainV;
+            if(l1.contains(BiometricType.weak)||l1.contains(BiometricType.strong)||l1.contains(BiometricType.fingerprint)||l1.contains(BiometricType.face)||l1.contains(BiometricType.iris))
+              {
+                mainV = await auth.authenticate(
+                    localizedReason: 'Please authenticate to proceed',
+                    options: AuthenticationOptions(useErrorDialogs: true,));
+              }
+              return mainV;
           }
       }
 
