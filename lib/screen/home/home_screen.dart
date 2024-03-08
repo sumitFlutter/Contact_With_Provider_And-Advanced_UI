@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:contact_info/screen/providers/screen_provider.dart';
 import 'package:contact_info/screen/providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,8 +38,23 @@ class _HomeScreenState extends State<HomeScreen> {
           style: Theme.of(context).textTheme.titleLarge
         ),
         actions: [
-          IconButton.filledTonal(onPressed: () {
-                    Navigator.pushNamed(context, "hide");
+          IconButton.filledTonal(onPressed: () async{
+            providerR!.lock();
+            bool? check1=false;
+            check1=await providerR!.lock();
+            if(check1==true)
+              {
+                Navigator.pushNamed(context, "hide");
+              }
+            else{
+              showDialog(context: context, builder: (context) {
+                return AlertDialog(title: const Text("Please set Screen lock first in Device!"),actions: [
+                  ElevatedButton(onPressed: () {
+                    Navigator.pop(context);
+                  }, child: const Text("OK!"))
+                ],);
+              },);
+            }
           }, icon: const Icon(Icons.lock)),
           IconButton(onPressed: () => providerR!.setTheme(), icon: Icon(providerW!.themeMode))
         ],
@@ -53,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Center(
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, "add");
+                  context.read<ScreenProvider>().changePage(index: 1);
                 },
                 child: Container(
                   height: 45,

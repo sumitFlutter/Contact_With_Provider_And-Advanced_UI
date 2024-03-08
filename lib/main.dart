@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:contact_info/screen/providers/provider.dart';
+import 'package:contact_info/screen/providers/screen_provider.dart';
 import 'package:contact_info/screen/providers/ui_provider.dart';
 import 'package:contact_info/theme/theme.dart';
 import 'package:contact_info/utils/routes/routes.dart';
@@ -11,12 +12,13 @@ import 'package:provider/provider.dart';
 
 void main()
 {
-
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Provider1()),
         ChangeNotifierProvider.value(value: UiProvider()),
+        ChangeNotifierProvider.value(value: ScreenProvider())
       ],
       child: Consumer2<Provider1,UiProvider>(
         builder:  (context, value, value2, child) {

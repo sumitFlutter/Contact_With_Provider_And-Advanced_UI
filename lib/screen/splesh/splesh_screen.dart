@@ -1,4 +1,5 @@
 import 'package:contact_info/screen/providers/provider.dart';
+import 'package:contact_info/screen/providers/ui_provider.dart';
 import 'package:contact_info/utils/shared_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class _SpleshState extends State<SpleshScreen_> {
   void initState() {
     super.initState();
     context.read<Provider1>().getIntroStatus();
-    Future.delayed(Duration(seconds: 3),() => Navigator.pushReplacementNamed(context, context.read<Provider1>().introScreen?"home":"intro"),);
+    Future.delayed(Duration(seconds: 3),() => Navigator.pushReplacementNamed(context, context.read<Provider1>().introScreen?context.read<UiProvider>().pAppUi==false?"dash":"home":"intro"),);
   }
   @override
   Widget build(BuildContext context) {

@@ -36,12 +36,12 @@ class _IntroScreenState extends State<IntroScreen> {
       showNextButton: false,
       skip: const Text("Skip",style: TextStyle(color: Colors.grey),),
       onSkip: () {
-        Navigator.pushReplacementNamed(context, "home");
+        Navigator.pushReplacementNamed(context, "dash");
       },
       done: const Text("Done"),
       onDone: () {
         providerR!.introToggle();
-        Navigator.pushReplacementNamed(context, "home");
+        Navigator.pushReplacementNamed(context, "dash");
       },
     );
   }
